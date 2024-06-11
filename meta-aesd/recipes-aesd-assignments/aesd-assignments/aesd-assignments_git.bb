@@ -8,7 +8,7 @@ SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-CamWood7;pr
 
 PV = "1.0+git${SRCPV}"
 # TODO: set to reference a specific commit hash in your assignment repo
-SRCREV = "ae1effe1923e1b724a1d34b0a2fcbc1ad0be72ff"
+SRCREV = "17d9b1f37458a3e821d4d71aa3552464338862ce"
 
 # This sets your staging directory based on WORKDIR, where WORKDIR is defined at 
 # https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-WORKDIR
@@ -18,14 +18,14 @@ S = "${WORKDIR}/git/server"
 
 # TODO: Add the aesdsocket application and any other files you need to install
 # See https://git.yoctoproject.org/poky/plain/meta/conf/bitbake.conf?h=kirkstone
-#FILES:${PN} += "${bindir}/aesdsocket.c"
 # TODO: customize these as necessary for any libraries you need for your application
 # (and remove comment)
 
 inherit update-rc.d
+FILES:${PN} += "${bindir}/aesdsocket"
 INITSCRIPT_PACKAGES = "${PN}"
 INITSCRIPT_NAME:${PN} = "aesdsocket-start-stop.sh"
-TARGET_LDFLAGS += "-pthread -lrt"
+EXTRA_OEMAKE += "CFLAGS='${TARGET_CFLAGS}' LDFLAGS='${TARGET_LDFLAGS}'"
 
 do_configure () {
 	:
