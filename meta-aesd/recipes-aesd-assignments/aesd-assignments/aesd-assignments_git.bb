@@ -21,11 +21,12 @@ S = "${WORKDIR}/git/server"
 # TODO: customize these as necessary for any libraries you need for your application
 # (and remove comment)
 
+LD_FLAGS += "-pthread -lrt"
+
 inherit update-rc.d
 FILES:${PN} += "${bindir}/aesdsocket"
 INITSCRIPT_PACKAGES = "${PN}"
 INITSCRIPT_NAME:${PN} = "aesdsocket-start-stop.sh"
-EXTRA_OEMAKE += "CFLAGS='${TARGET_CFLAGS}' LDFLAGS='${TARGET_LDFLAGS}'"
 
 do_configure () {
 	:
